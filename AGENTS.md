@@ -1,10 +1,9 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# Repository notes
+
+- Routes live in `src/routes` (TanStack Router file-based routing). Never edit
+  `src/routeTree.gen.ts` — it is generated.
+- Styling uses Tailwind CSS v4 via `src/styles.css`; prefer the semantic design
+  tokens defined there over hardcoded colors.
+- Database migrations live in `drizzle/migrations`.
+- Avoid rewriting published git history (force pushes, rebases, or amends of
+  pushed commits) so project history stays intact.
