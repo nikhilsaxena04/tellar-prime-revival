@@ -238,3 +238,7 @@
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
+
+.glow-node { filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 14px currentColor); }
+.flow-line { stroke-dasharray: 6 7; animation: dash 2.2s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -130; } }
