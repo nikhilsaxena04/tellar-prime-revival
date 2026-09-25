@@ -6,7 +6,6 @@ import {
   ExternalLink, FileText, GitBranch, Github, Globe2, Linkedin, Mail, Menu, Moon,
   Server, Sparkles, Sun, Terminal, ToolCase, X,
 } from "lucide-react";
-import { toast } from "sonner";
 
 import { DecryptText } from "@/components/fx/decrypt-text";
 import { HorizontalGallery } from "@/components/fx/horizontal-gallery";
