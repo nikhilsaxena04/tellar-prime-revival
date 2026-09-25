@@ -181,7 +181,7 @@ function Index() {
             <Button asChild variant="glow" size="lg"><a href={`mailto:${contact.email}`}><Mail />Email Me</a></Button>
             <Button asChild variant="glass" size="lg"><a href={contact.linkedin} target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></Button>
           </div>
-          <a href={`mailto:${contact.email}`} className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />myemailnikhilsaxena@gmail.com</a>
+          <a href={`mailto:${contact.email}`} className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />{contact.email}</a>
         </motion.div>
       </div></section>
     </main>
