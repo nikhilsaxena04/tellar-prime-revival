@@ -99,11 +99,11 @@ function Index() {
             <motion.p variants={{ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 } }} className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Full-stack &amp; AI Engineer (B.Tech, 2027). Built an LLM gateway with semantic caching, a Go notification system handling 9,200+ req/s, and shipped features to Graphify (120K★) and Checkmate (11K★).</motion.p>
             <motion.div variants={{ initial: { opacity: 0 }, animate: { opacity: 1 } }} className="relative z-30 mt-10 flex flex-wrap items-center gap-3">
               <Button asChild variant="glow" size="lg"><a href="#projects">View projects <ArrowUpRight /></a></Button>
-              <Button asChild variant="glass" size="lg"><a href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume (PDF)"><FileText />Resume</a></Button>
+              <Button asChild variant="glass" size="lg"><a href={contact.resume} target="_blank" rel="noreferrer" aria-label="Open resume (PDF)"><FileText />Resume</a></Button>
               <Button asChild variant="ghost" size="lg"><a href="#contact">Contact me <Mail /></a></Button>
               <span className="mx-2 hidden h-6 w-px bg-border sm:block" />
-              <Button asChild variant="ghost" size="icon"><a href="https://github.com/nikhilsaxena04" target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a></Button>
-              <Button asChild variant="ghost" size="icon"><a href="https://linkedin.com/in/nikhil-saxena-codes" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a></Button>
+              <Button asChild variant="ghost" size="icon"><a href={contact.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a></Button>
+              <Button asChild variant="ghost" size="icon"><a href={contact.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a></Button>
             </motion.div>
             <p className="mt-12 font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70">move your cursor — there is something under the surface</p>
           </motion.div>
@@ -178,15 +178,15 @@ function Index() {
           <SectionHeading number="05" eyebrow="Contact" title="Have a problem worth solving? Let’s talk." />
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">Currently looking for SWE internships and full-time roles — especially backend, infra, or AI systems work.</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild variant="glow" size="lg"><a href="mailto:myemailnikhilsaxena@gmail.com"><Mail />Email Me</a></Button>
-            <Button asChild variant="glass" size="lg"><a href="https://linkedin.com/in/nikhil-saxena-codes" target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></Button>
+            <Button asChild variant="glow" size="lg"><a href={`mailto:${contact.email}`}><Mail />Email Me</a></Button>
+            <Button asChild variant="glass" size="lg"><a href={contact.linkedin} target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></Button>
           </div>
-          <a href="mailto:myemailnikhilsaxena@gmail.com" className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />myemailnikhilsaxena@gmail.com</a>
+          <a href={`mailto:${contact.email}`} className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />myemailnikhilsaxena@gmail.com</a>
         </motion.div>
       </div></section>
     </main>
 
-    <footer className="border-t border-border py-8"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between lg:px-8"><p>© 2026 Nikhil Saxena. Built with care.</p><div className="flex gap-5"><a href="https://github.com/nikhilsaxena04" className="hover:text-foreground">GitHub</a><a href="https://linkedin.com/in/nikhil-saxena-codes" className="hover:text-foreground">LinkedIn</a><a href="#home" className="hover:text-foreground">Back to top ↑</a></div></div></footer>
+    <footer className="border-t border-border py-8"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between lg:px-8"><p>© 2026 Nikhil Saxena. Built with care.</p><div className="flex gap-5"><a href={contact.github} className="hover:text-foreground">GitHub</a><a href={contact.linkedin} className="hover:text-foreground">LinkedIn</a><a href="#home" className="hover:text-foreground">Back to top ↑</a></div></div></footer>
   </div>;
 }
 
