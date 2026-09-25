@@ -45,7 +45,7 @@ const skillGroups = [
 ];
 const allSkills = skillGroups.flatMap((group) => group.skills);
 const heroLines = ["I build systems that keep working", "when things go wrong."];
-const heroXrayLines = ["What happens when", "something goes wrong?"];
+const heroXrayLines = ["9,200 req/s, 13.8ms latency,"];
 const contributions = [
   { repo: "Graphify (120K+ ★, 7M+ DL)", title: "Fix PHP route handlers in graph", status: "Merged", number: "#3461", url: "https://github.com/Graphify-Labs/graphify/pull/3461" },
   { repo: "Graphify (120K+ ★, 7M+ DL)", title: "Stabilize closure IDs & refine extractor", status: "Merged", number: "8 commits", url: "https://github.com/Graphify-Labs/graphify/issues/3409" },
@@ -158,7 +158,7 @@ function Index() {
                 <h2 className="xray-type max-w-4xl text-5xl font-semibold leading-[1.03] sm:text-7xl lg:text-8xl">
                   {heroXrayLines.map((line) => <span key={line} className="block">{line}</span>)}
                 </h2>
-                <p className="xray-type mt-7 max-w-2xl text-lg leading-relaxed sm:text-xl">A network drops, a service crashes, an AI model times out. That's how I build. Hidden message: hire the person who reads the source.</p>
+                <p className="xray-type mt-7 max-w-2xl text-lg leading-relaxed sm:text-xl">and yet I still can't find my keys in the morning.</p>
               </div>
             </div>
           </XRayLayer>
@@ -198,7 +198,7 @@ function Index() {
 
       <section id="about" className="relative overflow-hidden py-24 sm:py-32"><div className="mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-[.8fr_1.2fr] lg:items-center lg:px-8">
         <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-lg border border-border bg-surface-strong">
-          <div className="grid-texture absolute inset-0 opacity-70" /><div className="absolute inset-6 flex items-center justify-center rounded-md border border-border bg-background/50 backdrop-blur-sm"><div className="text-center"><Code2 className="mx-auto size-12 text-primary" /><p className="mt-4 font-mono text-xs text-muted-foreground">NIKHIL SAXENA</p></div></div>
+          <div className="grid-texture absolute inset-0 opacity-70" /><div className="absolute inset-6 overflow-hidden rounded-md border border-border bg-background/50 backdrop-blur-sm"><img src="/profile.jpg" alt="Nikhil Saxena" className="h-full w-full object-cover object-top" /></div>
         </motion.div>
         <motion.div {...reveal}><SectionHeading number="04" eyebrow="About me" title="CURIOUS BY NATURE" />
           <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted-foreground"><p>I'm a full-stack and AI engineer graduating in 2027. I care about one question: what happens when something goes wrong? A network drops, a service crashes, an AI model times out. That's how I build.</p><p>Open source is where I prove it. I fixed a route-tracing bug in Graphify (120K+ GitHub stars, 7M+ PyPI downloads, YC S26), and built a 90-day incident history for Checkmate (11K+ stars). In my own projects, my Go notification system handles 9,200+ requests per second without losing messages.</p></div>
@@ -209,7 +209,7 @@ function Index() {
           <div className="absolute inset-0 bg-background" />
           <div className="absolute inset-0 flex items-center justify-center px-6">
             <p className="xray-type max-w-3xl text-center font-mono text-2xl font-semibold uppercase leading-snug sm:text-4xl">
-              Hidden layer: I’d rather ship one honest thing than ten clever ones.
+              Decrypted: You've discovered my secret. We can keep this between us... or schedule an interview. Your call.
             </p>
           </div>
         </XRayLayer>
