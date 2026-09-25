@@ -6,7 +6,6 @@ import {
   ExternalLink, FileText, GitBranch, Github, Globe2, Linkedin, Mail, Menu, Moon,
   Server, Sparkles, Sun, Terminal, ToolCase, X,
 } from "lucide-react";
-import { toast } from "sonner";
 
 import { DecryptText } from "@/components/fx/decrypt-text";
 import { HorizontalGallery } from "@/components/fx/horizontal-gallery";
@@ -15,7 +14,7 @@ import { PhysicsTags } from "@/components/fx/physics-tags";
 import { XRayLayer } from "@/components/fx/xray-layer";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { supabase } from "@/integrations/supabase/client";
+import { projects, contact, type Project } from "@/data/portfolio";
 import { NotificationBrokerDiagram } from "@/components/thumbnails/NotificationBrokerDiagram";
 import { OmniRouteDiagram } from "@/components/thumbnails/OmniRouteDiagram";
 import { MetaClashCarousel } from "@/components/thumbnails/MetaClashCarousel";
@@ -32,7 +31,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-type Project = { id: string; title: string; description: string; tech_stack: string[]; bullets: string[] | null; image_url: string | null; live_url: string | null; github_url: string | null; featured: boolean };
 
 const navItems = ["Home", "Skills", "Open Source", "Projects", "About", "Contact"];
 const skillGroups = [
@@ -55,8 +53,6 @@ const reveal = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0
 function Index() {
   const [dark, setDark] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loadingProjects, setLoadingProjects] = useState(true);
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -66,16 +62,6 @@ function Index() {
     setDark(isDark);
   }, []);
 
-  useEffect(() => {
-    let active = true;
-    supabase.from("projects").select("id,title,description,tech_stack,bullets,image_url,live_url,github_url,featured").order("display_order").then(({ data, error }) => {
-      if (!active) return;
-      if (error) toast.error("Projects could not be loaded right now.");
-      else setProjects(data ?? []);
-      setLoadingProjects(false);
-    });
-    return () => { active = false; };
-  }, []);
 
   const toggleTheme = (checked: boolean) => {
     setDark(checked);
@@ -113,11 +99,11 @@ function Index() {
             <motion.p variants={{ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 } }} className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Full-stack &amp; AI Engineer (B.Tech, 2027). Built an LLM gateway with semantic caching, a Go notification system handling 9,200+ req/s, and shipped features to Graphify (120K★) and Checkmate (11K★).</motion.p>
             <motion.div variants={{ initial: { opacity: 0 }, animate: { opacity: 1 } }} className="relative z-30 mt-10 flex flex-wrap items-center gap-3">
               <Button asChild variant="glow" size="lg"><a href="#projects">View projects <ArrowUpRight /></a></Button>
-              <Button asChild variant="glass" size="lg"><a href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume (PDF)"><FileText />Resume</a></Button>
+              <Button asChild variant="glass" size="lg"><a href={contact.resume} target="_blank" rel="noreferrer" aria-label="Open resume (PDF)"><FileText />Resume</a></Button>
               <Button asChild variant="ghost" size="lg"><a href="#contact">Contact me <Mail /></a></Button>
               <span className="mx-2 hidden h-6 w-px bg-border sm:block" />
-              <Button asChild variant="ghost" size="icon"><a href="https://github.com/nikhilsaxena04" target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a></Button>
-              <Button asChild variant="ghost" size="icon"><a href="https://linkedin.com/in/nikhil-saxena-codes" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a></Button>
+              <Button asChild variant="ghost" size="icon"><a href={contact.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a></Button>
+              <Button asChild variant="ghost" size="icon"><a href={contact.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a></Button>
             </motion.div>
             <p className="mt-12 font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70">move your cursor — there is something under the surface</p>
           </motion.div>
@@ -160,10 +146,10 @@ function Index() {
 
       <section id="projects" className="border-y border-border bg-muted/30 py-24 sm:py-32">
         <ImageTrail labels={projects.map((p) => p.title)}>
-          {loadingProjects ? <div className="mx-auto grid max-w-7xl gap-5 px-5 md:grid-cols-2 lg:px-8">{[1,2,3].map(i => <div key={i} className="h-[410px] animate-pulse rounded-lg bg-muted" />)}</div> : <HorizontalGallery
+          <HorizontalGallery
             header={<SectionHeading number="03" eyebrow="Selected work" title="MY PROJECTS" />}
             slides={projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
-          />}
+          />
         </ImageTrail>
       </section>
 
@@ -192,15 +178,15 @@ function Index() {
           <SectionHeading number="05" eyebrow="Contact" title="Have a problem worth solving? Let’s talk." />
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">Currently looking for SWE internships and full-time roles — especially backend, infra, or AI systems work.</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild variant="glow" size="lg"><a href="mailto:myemailnikhilsaxena@gmail.com"><Mail />Email Me</a></Button>
-            <Button asChild variant="glass" size="lg"><a href="https://linkedin.com/in/nikhil-saxena-codes" target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></Button>
+            <Button asChild variant="glow" size="lg"><a href={`mailto:${contact.email}`}><Mail />Email Me</a></Button>
+            <Button asChild variant="glass" size="lg"><a href={contact.linkedin} target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></Button>
           </div>
-          <a href="mailto:myemailnikhilsaxena@gmail.com" className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />myemailnikhilsaxena@gmail.com</a>
+          <a href={`mailto:${contact.email}`} className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />{contact.email}</a>
         </motion.div>
       </div></section>
     </main>
 
-    <footer className="border-t border-border py-8"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between lg:px-8"><p>© 2026 Nikhil Saxena. Built with care.</p><div className="flex gap-5"><a href="https://github.com/nikhilsaxena04" className="hover:text-foreground">GitHub</a><a href="https://linkedin.com/in/nikhil-saxena-codes" className="hover:text-foreground">LinkedIn</a><a href="#home" className="hover:text-foreground">Back to top ↑</a></div></div></footer>
+    <footer className="border-t border-border py-8"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between lg:px-8"><p>© 2026 Nikhil Saxena. Built with care.</p><div className="flex gap-5"><a href={contact.github} className="hover:text-foreground">GitHub</a><a href={contact.linkedin} className="hover:text-foreground">LinkedIn</a><a href="#home" className="hover:text-foreground">Back to top ↑</a></div></div></footer>
   </div>;
 }
 
@@ -212,8 +198,7 @@ function SectionHeading({ number, eyebrow, title }: { number: string; eyebrow: s
 }
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const Icon = [Database, Blocks, Terminal][index % 3] ?? Code2;
-  const t = project.title.toLowerCase();
-  const thumbKey = ["notification-broker", "omniroute", "meta-clash"].includes(project.id) ? project.id : t.includes("notification broker") ? "notification-broker" : t.includes("omniroute") ? "omniroute" : t.includes("meta clash") ? "meta-clash" : null;
+  const thumbKey = project.thumb ?? null;
   return <motion.article {...reveal} transition={{ duration: .55, delay: index*.08 }} className="glass-panel h-full overflow-hidden rounded-xl">
     <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-border" style={{ background: "radial-gradient(60% 55% at 78% 20%, rgba(177,78,255,0.10), transparent 60%), radial-gradient(50% 50% at 15% 85%, rgba(45,226,230,0.10), transparent 60%), #05050a" }}>{thumbKey === "notification-broker" ? <NotificationBrokerDiagram /> : thumbKey === "omniroute" ? <OmniRouteDiagram /> : thumbKey === "meta-clash" ? <MetaClashCarousel /> : <Icon className="relative z-[2] size-14 text-primary" />}{project.featured && <span className="absolute left-4 top-4 z-[2] rounded-md border border-border bg-background/70 px-2.5 py-1 font-mono text-[10px] uppercase backdrop-blur">Featured</span>}</div>
     <div className="p-6"><h3 className="text-xl font-semibold">{project.title}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>{project.bullets && project.bullets.length > 0 && <ul className="mt-4 list-disc space-y-1.5 pl-5 text-[13px] leading-snug text-muted-foreground/85 marker:text-primary/70">{project.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}<div className="mt-5 flex flex-wrap gap-2">{project.tech_stack.map(t => <span key={t} className="font-mono text-[11px] text-code">#{t.replaceAll(" ", "-").toLowerCase()}</span>)}</div><div className="mt-6 flex gap-2">{project.live_url && <Button asChild variant="secondary" size="sm"><a href={project.live_url} target="_blank" rel="noreferrer">Live <ExternalLink /></a></Button>}{project.github_url && <Button asChild variant="ghost" size="sm"><a href={project.github_url} target="_blank" rel="noreferrer"><Github />Code</a></Button>}</div></div>

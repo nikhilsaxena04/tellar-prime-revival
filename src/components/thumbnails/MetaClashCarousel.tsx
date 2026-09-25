@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-const IMAGES = ["/metaclash-1.jpg", "/metaclash-2.jpg", "/metaclash-3.jpg", "/metaclash-4.jpg"];
+import { metaClashImages as IMAGES } from "@/data/portfolio";
 
 const EASE = [0.33, 0, 0.2, 1] as const;
 
