@@ -133,13 +133,13 @@ function Index() {
       <section id="home" className="relative flex min-h-[92vh] items-center overflow-hidden pt-20">
         <div className="grid-texture pointer-events-none absolute inset-0 opacity-55" />
         <div className="relative mx-auto w-full max-w-7xl px-5 py-24 lg:px-8">
-          <motion.div initial="initial" animate="animate" variants={{ animate: { transition: { staggerChildren: 0.1 } } }} className="relative z-10 max-w-5xl">
+          <motion.div initial="initial" animate="animate" variants={{ animate: { transition: { staggerChildren: 0.1 } } }} className="relative max-w-5xl">
             <motion.div variants={{ initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 } }} className="mb-7 flex items-center gap-3 font-mono text-xs uppercase text-code"><span className="h-px w-8 bg-code" />Available for select projects</motion.div>
             <h1 className="max-w-4xl text-5xl font-semibold leading-[1.03] sm:text-7xl lg:text-8xl">
               {heroLines.map((line) => <motion.span key={line} variants={{ initial: { opacity: 0, y: 34 }, animate: { opacity: 1, y: 0 } }} className="block">{line}</motion.span>)}
             </h1>
             <motion.p variants={{ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 } }} className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Full-stack and AI engineer (B.Tech, 2027). I fixed a bug in Graphify (120K+ GitHub stars, 7M+ PyPI downloads) and built features for Checkmate (11K+ stars).</motion.p>
-            <motion.div variants={{ initial: { opacity: 0 }, animate: { opacity: 1 } }} className="mt-10 flex flex-wrap items-center gap-3">
+            <motion.div variants={{ initial: { opacity: 0 }, animate: { opacity: 1 } }} className="relative z-30 mt-10 flex flex-wrap items-center gap-3">
               <Button asChild variant="glow" size="lg"><a href="#projects">View projects <ArrowUpRight /></a></Button>
               <Button asChild variant="glass" size="lg"><a href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume (PDF)"><FileText />Resume</a></Button>
               <Button asChild variant="ghost" size="lg"><a href="#contact">Contact me <Mail /></a></Button>
