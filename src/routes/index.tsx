@@ -133,7 +133,7 @@ function Index() {
       <section id="home" className="relative flex min-h-[92vh] items-center overflow-hidden pt-20">
         <div className="grid-texture pointer-events-none absolute inset-0 opacity-55" />
         <div className="relative mx-auto w-full max-w-7xl px-5 py-24 lg:px-8">
-          <motion.div initial="initial" animate="animate" variants={{ animate: { transition: { staggerChildren: 0.1 } } }} className="relative z-10 max-w-5xl">
+          <motion.div initial="initial" animate="animate" variants={{ animate: { transition: { staggerChildren: 0.1 } } }} className="relative max-w-5xl">
             <motion.div variants={{ initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 } }} className="mb-7 flex items-center gap-3 font-mono text-xs uppercase text-code"><span className="h-px w-8 bg-code" />Available for select projects</motion.div>
             <h1 className="max-w-4xl text-5xl font-semibold leading-[1.03] sm:text-7xl lg:text-8xl">
               {heroLines.map((line) => <motion.span key={line} variants={{ initial: { opacity: 0, y: 34 }, animate: { opacity: 1, y: 0 } }} className="block">{line}</motion.span>)}
