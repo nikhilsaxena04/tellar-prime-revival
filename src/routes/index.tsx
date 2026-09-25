@@ -175,12 +175,12 @@ function Index() {
 
       <section id="contact" className="border-t border-border bg-muted/30 py-24 sm:py-32"><div className="mx-auto max-w-2xl px-5 text-center lg:px-8">
         <motion.div {...reveal} className="flex flex-col items-center">
-          <SectionHeading
-            number="05"
-            eyebrow="Contact"
-            title="Have a problem worth solving? Let’s talk."
-            className="w-full max-w-3xl text-left"
-          />
+          <div className="[&>div>div>span:nth-child(-n+2)]:hidden">
+            <SectionHeading {...({
+              eyebrow: "Contact",
+              title: "Have a problem worth solving? Let’s talk.",
+            } as unknown as Parameters<typeof SectionHeading>[0])} />
+          </div>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">Currently looking for SWE internships and full-time roles — especially backend, infra, or AI systems work.</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button asChild variant="glow" size="lg"><a href={`mailto:${contact.email}`}><Mail />Email Me</a></Button>
