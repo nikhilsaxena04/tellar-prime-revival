@@ -52,7 +52,7 @@ function PinnedTrack({ slides, header }: { slides: ReactNode[]; header: ReactNod
             <div key={index} className="w-[26rem] shrink-0 xl:w-[30rem]">{slide}</div>
           ))}
           <div className="flex w-[20rem] shrink-0 items-center pr-10 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            end of gallery — keep scrolling
+            more on Github — keep scrolling
           </div>
         </motion.div>
         <div className="mx-auto mt-10 h-px w-[calc(100%-2.5rem)] max-w-7xl bg-border">
