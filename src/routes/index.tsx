@@ -31,7 +31,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-type Project = { id: string; title: string; description: string; tech_stack: string[]; bullets: string[] | null; image_url: string | null; live_url: string | null; github_url: string | null; featured: boolean };
 
 const navItems = ["Home", "Skills", "Open Source", "Projects", "About", "Contact"];
 const skillGroups = [
