@@ -45,7 +45,7 @@ const skillGroups = [
 ];
 const allSkills = skillGroups.flatMap((group) => group.skills);
 const heroLines = ["I build systems that keep working", "when things go wrong."];
-const heroXrayLines = ["What happens when", "something goes wrong?"];
+const heroXrayLines = ["9,200 req/s, 13.8ms latency,"];
 const contributions = [
   { repo: "Graphify (120K+ ★, 7M+ DL)", title: "Fix PHP route handlers in graph", status: "Merged", number: "#3461", url: "https://github.com/Graphify-Labs/graphify/pull/3461" },
   { repo: "Graphify (120K+ ★, 7M+ DL)", title: "Stabilize closure IDs & refine extractor", status: "Merged", number: "8 commits", url: "https://github.com/Graphify-Labs/graphify/issues/3409" },
