@@ -1,6 +1,12 @@
 export function OmniRouteDiagram() {
   return (
-    <div className="relative z-[2] flex h-full w-full items-center justify-center p-4">
+    <div
+      className="relative z-[2] flex h-full w-full items-center justify-center p-4"
+      style={{
+        background:
+          "radial-gradient(60% 55% at 78% 20%, rgba(177,78,255,0.08), transparent 60%), radial-gradient(50% 50% at 15% 85%, rgba(45,226,230,0.08), transparent 60%)",
+      }}
+    >
       <svg className="h-full w-full" preserveAspectRatio="xMidYMid meet" viewBox="0 0 420 360" fill="none">
     <rect x="10" y="150" width="70" height="32" rx="8" fill="rgba(45,226,230,0.08)" stroke="#2de2e6" strokeWidth="1.2"/>
     <text x="45" y="169" fill="#2de2e6" fontFamily="'JetBrains Mono','Fira Code',ui-monospace,monospace" fontSize="9" textAnchor="middle">request</text>
