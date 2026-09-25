@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { motion } from "motion/react";
 import {
   ArrowUpRight, Blocks, Braces, CheckCircle2, Code2, Coffee, Database,
@@ -240,13 +240,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const Icon = [Database, Blocks, Terminal][index % 3] ?? Code2;
   const t = project.title.toLowerCase();
   const thumbKey = ["notification-broker", "omniroute", "meta-clash"].includes(project.id) ? project.id : t.includes("notification broker") ? "notification-broker" : t.includes("omniroute") ? "omniroute" : t.includes("meta clash") ? "meta-clash" : null;
-  const trackRipple = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty("--trail-x", `${((event.clientX - rect.left) / rect.width) * 100}%`);
-    event.currentTarget.style.setProperty("--trail-y", `${((event.clientY - rect.top) / rect.height) * 100}%`);
-  };
-  return <motion.article {...reveal} transition={{ duration: .55, delay: index*.08 }} className="group glass-panel h-full overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-    <div onPointerMove={trackRipple} className="liquid-surface relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-border bg-surface-strong"><div className="grid-texture absolute inset-0 opacity-70" />{thumbKey === "notification-broker" ? <NotificationBrokerDiagram /> : thumbKey === "omniroute" ? <OmniRouteDiagram /> : thumbKey === "meta-clash" ? <MetaClashCarousel /> : <Icon className="relative z-[2] size-14 text-primary transition-transform duration-500 group-hover:scale-110" />}{project.featured && <span className="absolute left-4 top-4 z-[2] rounded-md border border-border bg-background/70 px-2.5 py-1 font-mono text-[10px] uppercase backdrop-blur">Featured</span>}</div>
+  return <motion.article {...reveal} transition={{ duration: .55, delay: index*.08 }} className="glass-panel h-full overflow-hidden rounded-xl">
+    <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-border bg-surface-strong"><div className="grid-texture absolute inset-0 opacity-70" />{thumbKey === "notification-broker" ? <NotificationBrokerDiagram /> : thumbKey === "omniroute" ? <OmniRouteDiagram /> : thumbKey === "meta-clash" ? <MetaClashCarousel /> : <Icon className="relative z-[2] size-14 text-primary" />}{project.featured && <span className="absolute left-4 top-4 z-[2] rounded-md border border-border bg-background/70 px-2.5 py-1 font-mono text-[10px] uppercase backdrop-blur">Featured</span>}</div>
     <div className="p-6"><h3 className="text-xl font-semibold">{project.title}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>{project.bullets && project.bullets.length > 0 && <ul className="mt-4 list-disc space-y-1.5 pl-5 text-[13px] leading-snug text-muted-foreground/85 marker:text-primary/70">{project.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}<div className="mt-5 flex flex-wrap gap-2">{project.tech_stack.map(t => <span key={t} className="font-mono text-[11px] text-code">#{t.replaceAll(" ", "-").toLowerCase()}</span>)}</div><div className="mt-6 flex gap-2">{project.live_url && <Button asChild variant="secondary" size="sm"><a href={project.live_url} target="_blank" rel="noreferrer">Live <ExternalLink /></a></Button>}{project.github_url && <Button asChild variant="ghost" size="sm"><a href={project.github_url} target="_blank" rel="noreferrer"><Github />Code</a></Button>}</div></div>
   </motion.article>;
 }
