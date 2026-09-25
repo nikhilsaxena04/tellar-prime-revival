@@ -53,8 +53,6 @@ const reveal = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0
 function Index() {
   const [dark, setDark] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loadingProjects, setLoadingProjects] = useState(true);
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -64,16 +62,6 @@ function Index() {
     setDark(isDark);
   }, []);
 
-  useEffect(() => {
-    let active = true;
-    supabase.from("projects").select("id,title,description,tech_stack,bullets,image_url,live_url,github_url,featured").order("display_order").then(({ data, error }) => {
-      if (!active) return;
-      if (error) toast.error("Projects could not be loaded right now.");
-      else setProjects(data ?? []);
-      setLoadingProjects(false);
-    });
-    return () => { active = false; };
-  }, []);
 
   const toggleTheme = (checked: boolean) => {
     setDark(checked);
