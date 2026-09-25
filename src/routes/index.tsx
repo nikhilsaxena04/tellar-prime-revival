@@ -39,9 +39,9 @@ type Project = { id: string; title: string; description: string; tech_stack: str
 
 const navItems = ["Home", "Skills", "Open Source", "Projects", "About", "Contact"];
 const skillGroups = [
-  { title: "Languages", icon: Braces, skills: ["Go", "Python", "C++", "SQL", "TypeScript", "Bash"] },
-  { title: "Backend", icon: Server, skills: ["gRPC", "Redis", "PostgreSQL", "REST", "WebSockets"] },
-  { title: "Tools", icon: ToolCase, skills: ["Docker", "AWS", "GitHub Actions", "Prometheus", "Grafana"] },
+  { title: "Languages", icon: Braces, skills: ["Go", "Python", "TypeScript", "C++", "SQL"] },
+  { title: "Backend & AI", icon: Server, skills: ["gRPC", "Redis", "PostgreSQL", "pgvector", "LLMs"] },
+  { title: "Infra & Ops", icon: ToolCase, skills: ["AWS", "Docker", "Prometheus", "Jaeger", "Langfuse"] },
 ];
 const allSkills = skillGroups.flatMap((group) => group.skills);
 const heroLines = ["I build systems that keep working", "when things go wrong."];
