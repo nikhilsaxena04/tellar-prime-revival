@@ -14,7 +14,7 @@ import { PhysicsTags } from "@/components/fx/physics-tags";
 import { XRayLayer } from "@/components/fx/xray-layer";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { supabase } from "@/integrations/supabase/client";
+import { projects, contact, type Project } from "@/data/portfolio";
 import { NotificationBrokerDiagram } from "@/components/thumbnails/NotificationBrokerDiagram";
 import { OmniRouteDiagram } from "@/components/thumbnails/OmniRouteDiagram";
 import { MetaClashCarousel } from "@/components/thumbnails/MetaClashCarousel";
