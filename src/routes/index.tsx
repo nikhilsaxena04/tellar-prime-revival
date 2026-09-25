@@ -9,7 +9,6 @@ import {
 
 import { DecryptText } from "@/components/fx/decrypt-text";
 import { HorizontalGallery } from "@/components/fx/horizontal-gallery";
-import { ImageTrail } from "@/components/fx/image-trail";
 import { PhysicsTags } from "@/components/fx/physics-tags";
 import { XRayLayer } from "@/components/fx/xray-layer";
 import { Button } from "@/components/ui/button";
@@ -145,12 +144,12 @@ function Index() {
       </div></section>
 
       <section id="projects" className="border-y border-border bg-muted/30 py-24 sm:py-32">
-        <ImageTrail labels={projects.map((p) => p.title)}>
-          <HorizontalGallery
-            header={<SectionHeading number="03" eyebrow="Selected work" title="MY PROJECTS" />}
-            slides={projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
-          />
-        </ImageTrail>
+        {/* <ImageTrail labels={projects.map((p) => p.title)}> */}
+        <HorizontalGallery
+          header={<SectionHeading number="03" eyebrow="Selected work" title="MY PROJECTS" />}
+          slides={projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+        />
+        {/* </ImageTrail> */}
       </section>
 
 
@@ -175,7 +174,7 @@ function Index() {
 
       <section id="contact" className="border-t border-border bg-muted/30 py-24 sm:py-32"><div className="mx-auto max-w-2xl px-5 text-center lg:px-8">
         <motion.div {...reveal} className="flex flex-col items-center">
-          <SectionHeading number="05" eyebrow="Contact" title="Have a problem worth solving? Let’s talk." />
+          <SectionHeading eyebrow="Contact" title="Have a problem worth solving? Let’s talk." />
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">Currently looking for SWE internships and full-time roles — especially backend, infra, or AI systems work.</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button asChild variant="glow" size="lg"><a href={`mailto:${contact.email}`}><Mail />Email Me</a></Button>
@@ -190,9 +189,9 @@ function Index() {
   </div>;
 }
 
-function SectionHeading({ number, eyebrow, title }: { number: string; eyebrow: string; title: string }) {
+function SectionHeading({ number, eyebrow, title }: { number?: string; eyebrow: string; title: string }) {
   return <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.4 }}>
-    <div className="flex items-center gap-3 font-mono text-xs uppercase text-code"><span>{number}</span><span className="h-px w-7 bg-code" />{eyebrow}</div>
+    <div className="flex items-center gap-3 font-mono text-xs uppercase text-code">{number && <><span>{number}</span><span className="h-px w-7 bg-code" /></>}{eyebrow}</div>
     <DecryptText as="h2" text={title} className="mt-4 block max-w-3xl font-mono text-2xl font-semibold uppercase leading-tight tracking-tight sm:text-4xl" />
   </motion.div>;
 }
