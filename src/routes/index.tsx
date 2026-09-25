@@ -145,12 +145,12 @@ function Index() {
       </div></section>
 
       <section id="projects" className="border-y border-border bg-muted/30 py-24 sm:py-32">
-        <ImageTrail labels={projects.map((p) => p.title)}>
-          <HorizontalGallery
-            header={<SectionHeading number="03" eyebrow="Selected work" title="MY PROJECTS" />}
-            slides={projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
-          />
-        </ImageTrail>
+        {/* <ImageTrail labels={projects.map((p) => p.title)}> */}
+        <HorizontalGallery
+          header={<SectionHeading number="03" eyebrow="Selected work" title="MY PROJECTS" />}
+          slides={projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+        />
+        {/* </ImageTrail> */}
       </section>
 
 
