@@ -139,7 +139,7 @@ function Index() {
               {heroLines.map((line) => <motion.span key={line} variants={{ initial: { opacity: 0, y: 34 }, animate: { opacity: 1, y: 0 } }} className="block">{line}</motion.span>)}
             </h1>
             <motion.p variants={{ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 } }} className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Full-stack and AI engineer (B.Tech, 2027). I fixed a bug in Graphify (120K+ GitHub stars, 7M+ PyPI downloads) and built features for Checkmate (11K+ stars).</motion.p>
-            <motion.div variants={{ initial: { opacity: 0 }, animate: { opacity: 1 } }} className="mt-10 flex flex-wrap items-center gap-3">
+            <motion.div variants={{ initial: { opacity: 0 }, animate: { opacity: 1 } }} className="relative z-30 mt-10 flex flex-wrap items-center gap-3">
               <Button asChild variant="glow" size="lg"><a href="#projects">View projects <ArrowUpRight /></a></Button>
               <Button asChild variant="glass" size="lg"><a href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume (PDF)"><FileText />Resume</a></Button>
               <Button asChild variant="ghost" size="lg"><a href="#contact">Contact me <Mail /></a></Button>
