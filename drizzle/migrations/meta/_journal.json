@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790159684837,
+      "tag": "0000_create_portfolio_projects_and_contact_messages",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790336996919,
+      "tag": "0001_add_project_bullets",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790342705148,
+      "tag": "0002_create_portfolio_projects_and_contact_messages",
+      "breakpoints": true
+    }
+  ]
+}
