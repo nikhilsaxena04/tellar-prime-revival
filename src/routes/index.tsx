@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
-  ArrowUpRight, Blocks, Braces, CheckCircle2, Code2, Coffee, Database,
+  ArrowUpRight, Blocks, Braces, Code2, Coffee, Database,
   ExternalLink, FileText, GitBranch, Github, Globe2, Linkedin, Mail, Menu, Moon,
-  Send, Server, Sparkles, Sun, Terminal, ToolCase, X,
+  Server, Sparkles, Sun, Terminal, ToolCase, X,
 } from "lucide-react";
 import { toast } from "sonner";
-import { z } from "zod";
 
 import { DecryptText } from "@/components/fx/decrypt-text";
 import { HorizontalGallery } from "@/components/fx/horizontal-gallery";
@@ -15,9 +14,7 @@ import { ImageTrail } from "@/components/fx/image-trail";
 import { PhysicsTags } from "@/components/fx/physics-tags";
 import { XRayLayer } from "@/components/fx/xray-layer";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { NotificationBrokerDiagram } from "@/components/thumbnails/NotificationBrokerDiagram";
 import { OmniRouteDiagram } from "@/components/thumbnails/OmniRouteDiagram";
@@ -44,7 +41,7 @@ const skillGroups = [
   { title: "Infra & Ops", icon: ToolCase, skills: ["AWS", "Docker", "Prometheus", "Jaeger", "Langfuse"] },
 ];
 const allSkills = skillGroups.flatMap((group) => group.skills);
-const heroLines = ["I build systems that keep working", "when things go wrong."];
+const heroLines = ["I build AI infrastructure and", "backend systems that don't fall over."];
 const heroXrayLines = ["9,200 req/s, 13.8ms latency,"];
 const contributions = [
   { repo: "Graphify (120K+ ★, 7M+ DL)", title: "Fix PHP route handlers in graph", status: "Merged", number: "#3461", url: "https://github.com/Graphify-Labs/graphify/pull/3461" },
@@ -52,11 +49,6 @@ const contributions = [
   { repo: "Checkmate (11K+ ★)", title: "Build click-through incident history", status: "Merged", number: "#3975", url: "https://github.com/bluewave-labs/Checkmate/pull/3975" },
   { repo: "Checkmate (11K+ ★)", title: "Fix gRPC health monitor initialization", status: "Merged", number: "#3974", url: "https://github.com/bluewave-labs/Checkmate/pull/3974" },
 ];
-const contactSchema = z.object({
-  name: z.string().trim().min(2, "Please enter your name.").max(100),
-  email: z.string().trim().email("Please enter a valid email.").max(255),
-  message: z.string().trim().min(10, "Please share a little more detail.").max(2000),
-});
 
 const reveal = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.6 } };
 
@@ -65,8 +57,6 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -93,24 +83,6 @@ function Index() {
     localStorage.setItem("portfolio-theme", checked ? "dark" : "light");
   };
 
-  const submitContact = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formElement = event.currentTarget;
-    const form = new FormData(formElement);
-    const parsed = contactSchema.safeParse({ name: form.get("name"), email: form.get("email"), message: form.get("message") });
-    if (!parsed.success) {
-      const next: Record<string, string> = {};
-      parsed.error.issues.forEach((issue) => { const key = String(issue.path[0]); if (!next[key]) next[key] = issue.message; });
-      setErrors(next);
-      return;
-    }
-    setErrors({}); setSubmitting(true);
-    const { error } = await supabase.from("contact_messages").insert(parsed.data);
-    setSubmitting(false);
-    if (error) { toast.error("Your message wasn’t sent. Please try again."); return; }
-    formElement.reset();
-    toast.success("Message sent — I’ll get back to you soon.", { icon: <CheckCircle2 className="size-4" /> });
-  };
 
   return <div className="min-h-screen overflow-x-clip bg-background text-foreground">
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/75 backdrop-blur-xl">
@@ -134,11 +106,11 @@ function Index() {
         <div className="grid-texture pointer-events-none absolute inset-0 opacity-55" />
         <div className="relative mx-auto w-full max-w-7xl px-5 py-24 lg:px-8">
           <motion.div initial="initial" animate="animate" variants={{ animate: { transition: { staggerChildren: 0.1 } } }} className="relative max-w-5xl">
-            <motion.div variants={{ initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 } }} className="mb-7 flex items-center gap-3 font-mono text-xs uppercase text-code"><span className="h-px w-8 bg-code" />Available for select projects</motion.div>
+            <motion.div variants={{ initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 } }} className="mb-7 flex items-center gap-3 font-mono text-xs uppercase text-code"><span className="h-px w-8 bg-code" />Available for internships &amp; full-time roles</motion.div>
             <h1 className="max-w-4xl text-5xl font-semibold leading-[1.03] sm:text-7xl lg:text-8xl">
               {heroLines.map((line) => <motion.span key={line} variants={{ initial: { opacity: 0, y: 34 }, animate: { opacity: 1, y: 0 } }} className="block">{line}</motion.span>)}
             </h1>
-            <motion.p variants={{ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 } }} className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Full-stack and AI engineer (B.Tech, 2027). I fixed a bug in Graphify (120K+ GitHub stars, 7M+ PyPI downloads) and built features for Checkmate (11K+ stars).</motion.p>
+            <motion.p variants={{ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 } }} className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Full-stack &amp; AI Engineer (B.Tech, 2027). Built an LLM gateway with semantic caching, a Go notification system handling 9,200+ req/s, and shipped features to Graphify (120K★) and Checkmate (11K★).</motion.p>
             <motion.div variants={{ initial: { opacity: 0 }, animate: { opacity: 1 } }} className="relative z-30 mt-10 flex flex-wrap items-center gap-3">
               <Button asChild variant="glow" size="lg"><a href="#projects">View projects <ArrowUpRight /></a></Button>
               <Button asChild variant="glass" size="lg"><a href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume (PDF)"><FileText />Resume</a></Button>
@@ -201,7 +173,7 @@ function Index() {
           <div className="grid-texture absolute inset-0 opacity-70" /><div className="absolute inset-6 overflow-hidden rounded-md border border-border bg-background/50 backdrop-blur-sm"><img src="/profile.jpg" alt="Nikhil Saxena" className="h-full w-full object-cover object-top" /></div>
         </motion.div>
         <motion.div {...reveal}><SectionHeading number="04" eyebrow="About me" title="CURIOUS BY NATURE" />
-          <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted-foreground"><p>I'm a full-stack and AI engineer graduating in 2027. I care about one question: what happens when something goes wrong? A network drops, a service crashes, an AI model times out. That's how I build.</p><p>Open source is where I prove it. I fixed a route-tracing bug in Graphify (120K+ GitHub stars, 7M+ PyPI downloads, YC S26), and built a 90-day incident history for Checkmate (11K+ stars). In my own projects, my Go notification system handles 9,200+ requests per second without losing messages.</p></div>
+          <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted-foreground"><p>I'm a Full-Stack &amp; AI Engineer graduating in 2027. Most of my work sits at the infrastructure layer — LLM gateways, message queues, distributed tracing — but I also build the interfaces on top when a feature needs one, like the incident-history UI I shipped for Checkmate.</p><p>Open source is where I test myself against real codebases. I've shipped fixes and features to Graphify (120K★, 7M+ downloads) and Checkmate (11K★). Outside that, I'm usually deep in DSA, Go, or LLM evaluation work.</p></div>
           <div className="mt-9 flex flex-wrap gap-5 font-mono text-xs text-muted-foreground"><span className="flex items-center gap-2"><Globe2 className="size-4 text-primary" />India · Open to remote</span><span className="flex items-center gap-2"><Coffee className="size-4 text-primary" />Powered by curiosity</span></div>
         </motion.div>
       </div>
@@ -215,14 +187,16 @@ function Index() {
         </XRayLayer>
       </section>
 
-      <section id="contact" className="border-t border-border bg-muted/30 py-24 sm:py-32"><div className="mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-2 lg:px-8">
-        <motion.div {...reveal}><SectionHeading number="05" eyebrow="Contact" title="Have a problem worth solving? Let’s talk." /><p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">I’m always interested in thoughtful products, ambitious teams, and useful open-source work.</p><a href="mailto:myemailnikhilsaxena@gmail.com" className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />myemailnikhilsaxena@gmail.com</a></motion.div>
-        <motion.form {...reveal} onSubmit={submitContact} className="glass-panel space-y-5 rounded-lg p-6 sm:p-8" noValidate>
-          <Field label="Name" error={errors["name"]}><Input name="name" maxLength={100} placeholder="Your name" aria-invalid={Boolean(errors["name"])} /></Field>
-          <Field label="Email" error={errors["email"]}><Input name="email" type="email" maxLength={255} placeholder="you@company.com" aria-invalid={Boolean(errors["email"])} /></Field>
-          <Field label="Message" error={errors["message"]}><Textarea name="message" maxLength={2000} rows={6} placeholder="Tell me about the project, problem, or opportunity..." aria-invalid={Boolean(errors["message"])} /></Field>
-          <Button type="submit" variant="glow" size="lg" className="w-full sm:w-auto" disabled={submitting}>{submitting ? "Sending…" : "Send message"}<Send /></Button>
-        </motion.form>
+      <section id="contact" className="border-t border-border bg-muted/30 py-24 sm:py-32"><div className="mx-auto max-w-2xl px-5 text-center lg:px-8">
+        <motion.div {...reveal} className="flex flex-col items-center">
+          <SectionHeading number="05" eyebrow="Contact" title="Have a problem worth solving? Let’s talk." />
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">Currently looking for SWE internships and full-time roles — especially backend, infra, or AI systems work.</p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Button asChild variant="glow" size="lg"><a href="mailto:myemailnikhilsaxena@gmail.com"><Mail />Email Me</a></Button>
+            <Button asChild variant="glass" size="lg"><a href="https://linkedin.com/in/nikhil-saxena-codes" target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></Button>
+          </div>
+          <a href="mailto:myemailnikhilsaxena@gmail.com" className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-foreground hover:text-primary"><Mail className="size-4" />myemailnikhilsaxena@gmail.com</a>
+        </motion.div>
       </div></section>
     </main>
 
@@ -245,4 +219,3 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     <div className="p-6"><h3 className="text-xl font-semibold">{project.title}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>{project.bullets && project.bullets.length > 0 && <ul className="mt-4 list-disc space-y-1.5 pl-5 text-[13px] leading-snug text-muted-foreground/85 marker:text-primary/70">{project.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}<div className="mt-5 flex flex-wrap gap-2">{project.tech_stack.map(t => <span key={t} className="font-mono text-[11px] text-code">#{t.replaceAll(" ", "-").toLowerCase()}</span>)}</div><div className="mt-6 flex gap-2">{project.live_url && <Button asChild variant="secondary" size="sm"><a href={project.live_url} target="_blank" rel="noreferrer">Live <ExternalLink /></a></Button>}{project.github_url && <Button asChild variant="ghost" size="sm"><a href={project.github_url} target="_blank" rel="noreferrer"><Github />Code</a></Button>}</div></div>
   </motion.article>;
 }
-function Field({ label, error, children }: { label: string; error: string | undefined; children: ReactNode }) { return <label className="block"><span className="mb-2 block text-sm font-medium">{label}</span>{children}{error && <span className="mt-1.5 block text-xs text-destructive">{error}</span>}</label>; }
